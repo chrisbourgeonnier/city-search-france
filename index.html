@@ -4,19 +4,20 @@
   <meta charset="UTF-8">
   <title>Type Ahead 👀</title>
   <link rel="stylesheet" href="style.css">
-  <link rel="icon" href="https://fav.farm/🔥" />
+  <link rel="icon" href="cb-favicon.ico" />
 </head>
 <body>
-
+  <h1 class="text-center">French Cities and Departments</h1>
+  <h2 class="text-center">over 10,000 cities, towns and hamlets</h2>
   <form class="search-form">
-    <input type="text" class="search" placeholder="City or State">
+    <input type="text" class="search" placeholder="City or Department">
     <ul class="suggestions">
-      <li>Filter for a city</li>
-      <li>or a state</li>
+      <li>Filter for a city,</li>
+      <li>or a department</li>
     </ul>
   </form>
 <script>
-const endpoint = 'https://gist.githubusercontent.com/Miserlou/c5cd8364bf9b2420bb29/raw/2bf258763cdddd704f8ffd3ea9a3e81d25e2c6f6/cities.json';
+const endpoint = 'db/french-cities-large.json';
 
 const cities = [];
 
@@ -27,24 +28,27 @@ fetch(endpoint)
 function findMatches(wordToMatch, cities) {
   return cities.filter(place => {
     const regex = new RegExp(wordToMatch, 'gi');
-    return place.city.match(regex) || place.state.match(regex)
+    return place.label.match(regex) || place.department_name.match(regex)
   });
 }
 
-function numberWithCommas(x) {
-    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-}
+// function numberWithCommas(x) {
+//     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+// }
+
+// change line 50 to get population
+// <span class="population">${numberWithCommas(place.population_proper)}</span>
 
 function displayMatches() {
   const matchArray = findMatches(this.value, cities)
   const html = matchArray.map(place => {
     const regex = new RegExp(this.value, 'gi');
-    const cityName = place.city.replace(regex, `<span class='hl'>${this.value}</span>`);
-    const stateName = place.state.replace(regex, `<span class='hl'>${this.value}</span>`);
+    const cityName = place.label.replace(regex, `<span class='hl'>${this.value}</span>`);
+    const departmentName = place.department_name.replace(regex, `<span class='hl'>${this.value}</span>`);
     return `
       <li>
-        <span class="name">${cityName}, ${stateName}</span>
-        <span class="population">${numberWithCommas(place.population)}</span>
+        <span class="name">${cityName}, ${departmentName}</span>
+        <span class="population">${place.zip_code}</span>
       </li>
     `;
   }).join('');
@@ -58,5 +62,6 @@ searchInput.addEventListener('change', displayMatches);
 searchInput.addEventListener('keyup', displayMatches);
 
 </script>
+<p class="text-center">Made with ♥ by Chris Bourgeonnier in 2023</p>
 </body>
 </html>

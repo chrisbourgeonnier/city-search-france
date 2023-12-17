@@ -1,6 +1,6 @@
 html {
   box-sizing: border-box;
-  background: #87cce0;
+  background: linear-gradient(90deg, rgb(24, 24, 90) 1%, rgb(160, 160, 160) 20%, rgb(160, 160, 160) 80%, rgb(90, 24, 24) 100%);
   font-family: 'helvetica neue';
   font-size: 20px;
   font-weight: 200;
@@ -13,6 +13,13 @@ html {
 input {
   width: 100%;
   padding: 20px;
+}
+
+.text-center {
+  text-align: center;
+  font-family: 'Calibri';
+  color: white;
+  text-shadow: 1px 2px 5px rgba(65, 65, 65, 0.7);
 }
 
 .search-form {
