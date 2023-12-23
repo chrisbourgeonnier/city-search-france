@@ -8,7 +8,7 @@
 </head>
 <body>
   <h1 class="text-center">French Cities and Departments</h1>
-  <h2 class="text-center">over 10,000 cities, towns and hamlets</h2>
+  <h2 class="text-center">over 30,000 cities, towns and hamlets</h2>
   <form class="search-form">
     <input type="text" class="search" placeholder="City or Department">
     <ul class="suggestions">
@@ -17,7 +17,7 @@
     </ul>
   </form>
 <script>
-const endpoint = 'db/french-cities-large.json';
+const endpoint = 'db/cities.json';
 
 const cities = [];
 
@@ -28,7 +28,7 @@ fetch(endpoint)
 function findMatches(wordToMatch, cities) {
   return cities.filter(place => {
     const regex = new RegExp(wordToMatch, 'gi');
-    return place.label.match(regex) || place.department_name.match(regex)
+    return place.city.match(regex) || place.department_name.match(regex)
   });
 }
 
@@ -36,14 +36,14 @@ function findMatches(wordToMatch, cities) {
 //     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 // }
 
-// change line 50 to get population
+// change line 51 to get population
 // <span class="population">${numberWithCommas(place.population_proper)}</span>
 
 function displayMatches() {
   const matchArray = findMatches(this.value, cities)
   const html = matchArray.map(place => {
     const regex = new RegExp(this.value, 'gi');
-    const cityName = place.label.replace(regex, `<span class='hl'>${this.value}</span>`);
+    const cityName = place.city.replace(regex, `<span class='hl'>${this.value}</span>`);
     const departmentName = place.department_name.replace(regex, `<span class='hl'>${this.value}</span>`);
     return `
       <li>
@@ -62,6 +62,8 @@ searchInput.addEventListener('change', displayMatches);
 searchInput.addEventListener('keyup', displayMatches);
 
 </script>
+<p class="text-center">The database is large, thank you for your patience...</p>
+<br>
 <p class="text-center">Made with ♥ by Chris Bourgeonnier in 2023</p>
 </body>
 </html>
