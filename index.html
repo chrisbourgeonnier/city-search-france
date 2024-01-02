@@ -8,7 +8,7 @@
 </head>
 <body>
   <h1 class="text-center">French Cities and Departments</h1>
-  <h2 class="text-center">over 30,000 cities, towns and hamlets</h2>
+  <h2 class="text-center">over 35,000 cities, towns and hamlets</h2>
   <form class="search-form">
     <input type="text" class="search" placeholder="City or Department">
     <ul class="suggestions">
@@ -32,13 +32,6 @@ function findMatches(wordToMatch, cities) {
   });
 }
 
-// function numberWithCommas(x) {
-//     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-// }
-
-// change line 51 to get population
-// <span class="population">${numberWithCommas(place.population_proper)}</span>
-
 function displayMatches() {
   const matchArray = findMatches(this.value, cities)
   const html = matchArray.map(place => {
@@ -48,7 +41,7 @@ function displayMatches() {
     return `
       <li>
         <span class="name">${cityName}, ${departmentName}</span>
-        <span class="population">${place.zip_code}</span>
+        <span class="zip">${place.zip_code}</span>
       </li>
     `;
   }).join('');
