@@ -26,17 +26,23 @@ fetch(endpoint)
       .then(data => cities.push(...data));
 
 function findMatches(wordToMatch, cities) {
-  if (wordToMatch !== '') {
+  // if (wordToMatch !== '') {
+  if (wordToMatch.length >= 2) {
 
     return cities.filter(place => {
       const regex = new RegExp(wordToMatch, 'gi');
       return place.city.match(regex) || place.department_name.match(regex)
     });
+  } else {
+    suggestions.innerHTML = `
+      <li>Filter for a city,</li>
+      <li>or a department</li>`;
   }
+
 }
 
 function displayMatches() {
-  const matchArray = findMatches(this.value, cities)
+  const matchArray = findMatches(this.value, cities);
   const html = matchArray.map(place => {
     const regex = new RegExp(this.value, 'gi');
     const cityName = place.city.replace(regex, `<span class='hl'>${this.value}</span>`);
@@ -58,8 +64,6 @@ searchInput.addEventListener('change', displayMatches);
 searchInput.addEventListener('keyup', displayMatches);
 
 </script>
-<p class="text-center">The database is large, the first letters might take a while...</p>
-<br>
 <p class="text-center">Made with ♥ by Chris Bourgeonnier in 2023</p>
 </body>
 </html>
